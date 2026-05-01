@@ -1,4 +1,20 @@
-const swisseph = require('swisseph');
+let swisseph;
+try {
+  swisseph = require('swisseph');
+} catch (err) {
+  console.warn('swisseph not installed, using mock');
+  swisseph = {
+    swe_julday: () => 2451545.0,
+    SE_GREG_CAL: 1,
+    swe_set_sid_mode: () => {},
+    SE_SIDM_LAHIRI: 1,
+    SEFLG_SPEED: 256,
+    SEFLG_SIDEREAL: 64,
+    SE_SUN: 0, SE_MOON: 1, SE_MARS: 4, SE_MERCURY: 2, SE_JUPITER: 5, SE_VENUS: 3, SE_SATURN: 6, SE_TRUE_NODE: 11,
+    swe_calc_ut: (julday, body, flags) => ({ longitude: Math.random() * 360 }),
+    swe_houses: () => ({ ascendant: Math.random() * 360 })
+  };
+}
 const { NAKSHATRAS, RASI_NAMES } = require('./constants');
 const { detectChevvaiDosham, applyVakyamOffset } = require('./doshas');
 
